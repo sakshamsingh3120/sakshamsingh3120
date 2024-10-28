@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MIS Photo Database</title>
+    <style>
+        body {
+            background-color: #0d0d0d;
+            color: #00ff00;
+            font-family: 'Courier New', Courier, monospace;
+            text-align: center;
+            padding: 50px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            animation: fadeIn 1.5s ease-in;
+        }
+
+        h1, h2 {
+            font-size: 2.5rem;
+            margin: 0;
+            color: #00ff00;
+            text-shadow: 0 0 8px #00ff00, 0 0 15px #00ff00;
+            animation: flicker 3s infinite alternate;
+        }
+
+        h2 {
+            font-size: 1.2rem;
+            color: #009900;
+            margin-bottom: 20px;
+        }
+
+        input {
+            padding: 12px;
+            font-size: 18px;
+            border: 2px solid #00ff00;
+            background-color: #0d0d0d;
+            color: #00ff00;
+            width: 250px;
+            text-align: center;
+            outline: none;
+            margin-top: 10px;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 255, 0, 0.5);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        input:focus {
+            transform: scale(1.05);
+            box-shadow: 0 0 20px rgba(0, 255, 0, 0.8);
+        }
+
+        button {
+            padding: 12px 20px;
+            font-size: 16px;
+            border: 2px solid #00ff00;
+            background-color: #0d0d0d;
+            color: #00ff00;
+            cursor: pointer;
+            border-radius: 5px;
+            transition: background-color 0.3s ease, color 0.3s ease;
+            margin-top: 20px;
+            box-shadow: 0 0 10px rgba(0, 255, 0, 0.5);
+        }
+
+        button:hover {
+            background-color: #00ff00;
+            color: #0d0d0d;
+        }
+
+        .error {
+            color: #ff1a1a;
+            margin-top: 15px;
+            font-size: 1.1rem;
+            text-shadow: 0 0 5px #ff1a1a;
+            animation: fadeIn 1s ease;
+        }
+
+        .loading {
+            color: #ffff1a;
+            margin-top: 15px;
+            font-size: 1.1rem;
+            animation: fadeIn 1s ease;
+        }
+
+        .image-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+            gap: 15px;
+            margin-top: 30px;
+            width: 100%;
+            max-width: 800px;
+        }
+
+        img {
+            max-width: 100%;
+            height: auto;
+            border: 2px solid #00ff00;
+            border-radius: 8px;
+            opacity: 0;
+            animation: imageFadeIn 0.5s ease forwards;
+            box-shadow: 0 0 10px rgba(0, 255, 0, 0.5);
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+
+        @keyframes flicker {
+            0% { opacity: 1; }
+            50% { opacity: 0.8; }
+            100% { opacity: 1; }
+        }
+
+        @keyframes imageFadeIn {
+            from {
+                opacity: 0;
+                transform: scale(0.95);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+    </style>
+    <script>
+        function updateImages() {
+            const number = document.getElementById('imageNumber').value;
+            const errorMessage = document.getElementById('errorMessage');
+            const loadingMessage = document.getElementById('loadingMessage');
+            const imageContainer = document.getElementById('imageContainer');
+
+            errorMessage.textContent = '';
+            loadingMessage.textContent = '';
+            imageContainer.innerHTML = '';
+
+            if (number === '3120' || number === '2679') {
+                errorMessage.textContent = 'This system ID is blocked by admin Saksham Singh.';
+                return;
+            }
+
+            if (!number) {
+                errorMessage.textContent = 'Please enter an image number.';
+                return;
+            }
+
+            loadingMessage.textContent = 'Loading...';
+
+            for (let suffix = 15; suffix >= 1; suffix--) {
+                loadImage(number, suffix, imageContainer);
+            }
+
+            loadingMessage.textContent = ''; 
+        }
+
+        function loadImage(number, suffix, container) {
+            const imageUrl = `https://misms.net.in/app/files/sinfo/stupics/${number}_${suffix}.jpg`;
+            const imgElement = document.createElement('img');
+            imgElement.src = imageUrl;
+            imgElement.alt = `Image ${number}_${suffix}`;
+            container.appendChild(imgElement);
+
+            const tempImg = new Image();
+            tempImg.src = imageUrl;
+            tempImg.onload = function() {
+                imgElement.style.display = 'block'; 
+            };
+            tempImg.onerror = function() {
+                imgElement.style.display = 'none'; 
+            };
+        }
+    </script>
+</head>
+<body>
+    <h1>MIS Photo Database</h1>
+    <h2>Made by: Saksham Singh 10B</h2>
+    <input type="text" id="imageNumber" placeholder="system id">
+    <button onclick="updateImages()">Load Images</button>
+    <p class="error" id="errorMessage"></p>
+    <p class="loading" id="loadingMessage"></p>
+    <div class="image-container" id="imageContainer"></div>
+</body>
+  </html>
