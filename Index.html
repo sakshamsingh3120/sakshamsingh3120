@@ -157,7 +157,7 @@
             }
 
             if (!number) {
-                errorMessage.textContent = 'Please enter an image number.';
+                errorMessage.textContent = 'Please enter your system id.';
                 return;
             }
 
@@ -192,7 +192,7 @@
     <img class="logo" src="https://misms.net.in/app/img/logo.png" alt="Logo">
     <h1>MIS Photo Database</h1>
     <h2>Made by: Saksham Singh 10B</h2>
-    <input type="text" id="imageNumber" placeholder="system id">
+    <input type="text" id="imageNumber" placeholder="enter your system id">
     <button onclick="updateImages()">Load Images</button>
     <p class="error" id="errorMessage"></p>
     <p class="loading" id="loadingMessage"></p>
