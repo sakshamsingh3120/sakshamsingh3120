@@ -4,6 +4,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>MIS Photo Database</title>
+   
+    <link rel="icon" href="https://misms.net.in/app/img/logo.png" type="image/png">
+
     <style>
         body {
             background-color: #0d0d0d;
@@ -17,7 +20,14 @@
             animation: fadeIn 1.5s ease-in;
         }
 
-        h1, h2 {
+     
+        .logo {
+            width: 150px; 
+            height: auto;
+            margin-bottom: 20px; 
+        }
+
+        h1 {
             font-size: 2.5rem;
             margin: 0;
             color: #00ff00;
@@ -27,8 +37,9 @@
 
         h2 {
             font-size: 1.2rem;
-            color: #009900;
+            color: #ffffff;
             margin-bottom: 20px;
+            text-shadow: none;
         }
 
         input {
@@ -178,6 +189,7 @@
     </script>
 </head>
 <body>
+    <img class="logo" src="https://misms.net.in/app/img/logo.png" alt="Logo">
     <h1>MIS Photo Database</h1>
     <h2>Made by: Saksham Singh 10B</h2>
     <input type="text" id="imageNumber" placeholder="system id">
@@ -186,4 +198,4 @@
     <p class="loading" id="loadingMessage"></p>
     <div class="image-container" id="imageContainer"></div>
 </body>
-  </html>
+</html>
